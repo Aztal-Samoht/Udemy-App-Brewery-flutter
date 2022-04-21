@@ -14,12 +14,11 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const <Widget>[
-              SizedBox(width: double.infinity),
+            children: <Widget>[
               CircleAvatar(
-                backgroundColor: Colors.red,
-                backgroundImage: AssetImage('images/569Garbodor.png'),
+                // backgroundColor: Colors.red,
                 radius: 50.0,
+                backgroundImage: AssetImage('images/569Garbodor.png'),
               ),
               Text(
                 "Squigy",
@@ -33,10 +32,55 @@ class MyApp extends StatelessWidget {
               Text(
                 "programer",
                 style: TextStyle(
-                    fontFamily: 'SourceSansPro',
-                    fontSize: 20.0,
-                    fontStyle: FontStyle.normal,
-                    fontWeight: FontWeight.w100),
+                  fontFamily: 'SourceSansPro',
+                  fontSize: 20.0,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.teal.shade100,
+                ),
+              ),
+              Container(
+                  height: 20.0,
+                  width: 150.0,
+                  child: Divider(color: Colors.teal.shade100)),
+              Card(
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.phone,
+                    // size: 100.0,
+                    color: Colors.teal,
+                  ),
+                  // SizedBox(width: 10.0),
+                  title: Text(
+                    "(555)555-5555",
+                    style: TextStyle(
+                      color: Colors.teal.shade900,
+                      fontFamily: 'SourceSansPro',
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+              ),
+              Card(
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.mail,
+                    // size: 100.0,
+                    color: Colors.teal,
+                  ),
+                  title: Text(
+                    "Example@XonTheY.com",
+                    style: TextStyle(
+                      color: Colors.teal.shade900,
+                      fontFamily: 'SourceSansPro',
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
