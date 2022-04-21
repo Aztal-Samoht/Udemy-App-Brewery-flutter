@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,11 +17,20 @@ void main() {
   );
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  const DicePage({Key? key}) : super(key: key);
+
+  @override
+  _DicePageState createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  int leftDieNumber = 6;
+  int rightDieNumber = 6;
+  var generator = Random();
+
   @override
   Widget build(BuildContext context) {
-    int leftDieNumber = 4;
-    int rightDieNumber = 4;
     return Center(
       child: Row(
         children: <Widget>[
@@ -27,7 +38,9 @@ class DicePage extends StatelessWidget {
             flex: 4,
             child: FlatButton(
               onPressed: () {
-                printLeft();
+                setState(() {
+                  leftDieNumber = generator.nextInt(6) + 1;
+                });
               },
               child: Image.asset('images/dice$leftDieNumber.png'),
             ),
@@ -36,7 +49,9 @@ class DicePage extends StatelessWidget {
             flex: 4,
             child: FlatButton(
               onPressed: () {
-                printRight();
+                setState(() {
+                  rightDieNumber = generator.nextInt(6) + 1;
+                });
               },
               child: Image.asset('images/dice$rightDieNumber.png'),
             ),
@@ -49,6 +64,12 @@ class DicePage extends StatelessWidget {
 
 void printLeft() {
   print('left button got pressed from func call');
+}
+
+int incDie(int a) {
+  int returnValue = a + 1;
+  print(returnValue);
+  return returnValue;
 }
 
 void printRight() {
