@@ -1,0 +1,77 @@
+name: project_mi_card
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.1 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - images/569Garbodor.png
+    - images/diamond.png
+  fonts:
+    - family: Pacifico
+      fonts:
+        - asset: fonts/Pacifico-Regular.ttf
+    - family: SourceSansPro
+      fonts:
+        - asset: fonts/SourceSansPro-black.ttf
+          style: normal
+          weight: 600
+        - asset: fonts/SourceSansPro-BlackItalic.ttf
+          style: italic
+          weight: 600
+        - asset: fonts/SourceSansPro-Bold.ttf
+          style: normal
+          weight: 500
+        - asset: fonts/SourceSansPro-BoldItalic.ttf
+          style: italic
+          weight: 500
+        - asset: fonts/SourceSansPro-ExtraLight.ttf
+          style: normal
+          weight: 100
+        - asset: fonts/SourceSansPro-ExtraLightItalic.ttf
+          style: italic
+          weight: 100
+        - asset: fonts/SourceSansPro-italic.ttf
+          style: italic
+          weight: 300
+        - asset: fonts/SourceSansPro-Light.ttf
+          style: normal
+          weight: 200
+        - asset: fonts/SourceSansPro-LightItalic.ttf
+          style: italic
+          weight: 200
+        - asset: fonts/SourceSansPro-regular.ttf
+          style: normal
+          weight: 100
+        - asset: fonts/SourceSansPro-SemiBold.ttf
+          style: normal
+          weight: 400
+        - asset: fonts/SourceSansPro-SemiBoldItalic.ttf
+          style: italic
+          weight: 400
+#EL 1
+#L  2
+#R  3
+#SB 4
+#B  5
+#BL 6
