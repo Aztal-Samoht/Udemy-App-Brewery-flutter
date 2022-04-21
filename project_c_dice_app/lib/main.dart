@@ -18,8 +18,8 @@ void main() {
 class DicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var leftDieNumber = 4;
-    var rightDieNumber = 4;
+    int leftDieNumber = 4;
+    int rightDieNumber = 4;
     return Center(
       child: Row(
         children: <Widget>[
