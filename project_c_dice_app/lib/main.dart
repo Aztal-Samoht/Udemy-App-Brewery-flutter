@@ -29,6 +29,11 @@ class _DicePageState extends State<DicePage> {
   int rightDieNumber = 6;
   var generator = Random();
 
+  void roll() {
+    leftDieNumber = generator.nextInt(6) + 1;
+    rightDieNumber = generator.nextInt(6) + 1;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -39,8 +44,7 @@ class _DicePageState extends State<DicePage> {
             child: FlatButton(
               onPressed: () {
                 setState(() {
-                  leftDieNumber = generator.nextInt(6) + 1;
-                  rightDieNumber = generator.nextInt(6) + 1;
+                  roll();
                 });
               },
               child: Image.asset('images/dice$leftDieNumber.png'),
@@ -51,8 +55,7 @@ class _DicePageState extends State<DicePage> {
             child: FlatButton(
               onPressed: () {
                 setState(() {
-                  leftDieNumber = generator.nextInt(6) + 1;
-                  rightDieNumber = generator.nextInt(6) + 1;
+                  roll();
                 });
               },
               child: Image.asset('images/dice$rightDieNumber.png'),
@@ -72,8 +75,4 @@ int incDie(int a) {
   int returnValue = a + 1;
   print(returnValue);
   return returnValue;
-}
-
-void printRight() {
-  print('right button got pressed from func call');
 }
