@@ -12,19 +12,31 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.teal,
         body: SafeArea(
           child: Column(
-            children: const [
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const <Widget>[
+              SizedBox(width: double.infinity),
               CircleAvatar(
                 backgroundColor: Colors.red,
                 backgroundImage: AssetImage('images/569Garbodor.png'),
                 radius: 50.0,
               ),
               Text(
-                "squigy",
+                "Squigy",
                 style: TextStyle(
+                  fontFamily: 'pacifico',
                   fontSize: 40.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+              Text(
+                "programer",
+                style: TextStyle(
+                    fontFamily: 'SourceSansPro',
+                    fontSize: 20.0,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.w100),
               ),
             ],
           ),
