@@ -6,6 +6,19 @@ void main() => runApp(XylophoneApp());
 
 class XylophoneApp extends StatelessWidget {
   final player = AudioCache();
+
+  Widget buildKey(dynamic c, String s) {
+    return Expanded(
+      flex: 1,
+      child: Container(
+        color: c,
+        child: TextButton(onPressed: () {
+          player.play(s);
+        }),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,69 +29,19 @@ class XylophoneApp extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.red,
-                    child: TextButton(onPressed: () {
-                      player.play('note1.wav');
-                    }),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.orange,
-                    child: TextButton(onPressed: () {
-                      player.play('note2.wav');
-                    }),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.yellow,
-                    child: TextButton(onPressed: () {
-                      player.play('note3.wav');
-                    }),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.green,
-                    child: TextButton(onPressed: () {
-                      player.play('note4.wav');
-                    }),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.blue,
-                    child: TextButton(onPressed: () {
-                      player.play('note5.wav');
-                    }),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.indigo,
-                    child: TextButton(onPressed: () {
-                      player.play('note6.wav');
-                    }),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.purple,
-                    child: TextButton(onPressed: () {
-                      player.play('note7.wav');
-                    }),
-                  ),
-                ),
+                buildKey(Colors.red, "note1.wav"),
+                buildKey(Colors.orange, "note2.wav"),
+                buildKey(Colors.yellow, "note3.wav"),
+                buildKey(Colors.green, "note4.wav"),
+                buildKey(Colors.blue, "note5.wav"),
+                buildKey(Colors.indigo, "note6.wav"),
+                buildKey(Colors.purple, "note7.wav"),
+                // buildKey(),
+                // buildKey(),
+                // buildKey(),
+                // buildKey(),
+                // buildKey(),
+                // buildKey(),
               ],
             ),
           ),
