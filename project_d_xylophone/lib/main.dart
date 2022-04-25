@@ -7,7 +7,7 @@ void main() => runApp(XylophoneApp());
 class XylophoneApp extends StatelessWidget {
   final player = AudioCache();
 
-  Widget buildKey(dynamic c, String s) {
+  Widget buildKey(Color c, String s) {
     return Expanded(
       flex: 1,
       child: Container(
