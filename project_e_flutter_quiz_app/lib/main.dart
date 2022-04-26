@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_e_flutter_quiz_app/question.dart';
 import 'package:project_e_flutter_quiz_app/quiz_widgets.dart';
+import 'quiz_lib.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,69 +34,62 @@ class QuizHome extends StatefulWidget {
 }
 
 class _QuizHome extends State<QuizHome> {
-  List<Widget> scoreKeeper = [Container(height: 25)];
-  List<Question> questions = [
-    Question('you cannot lead a cow down stairs', false),
-    Question('25% of your bones are in your feed', true),
-    Question('slug blood is green', true),
-    Question("congrats, you finished the quiz", true)
-  ];
-  int qIndex = -1;
-  dynamic currentGuess = -1;
-  String currentQuestion = 'Welcome to the quiz, press any button to start';
-
+  QuizLib aQuizLibrary = QuizLib();
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        quizQuestion(currentQuestion),
+        quizQuestion(aQuizLibrary.currentQuestion),
         quizButton(Colors.green, "True", guessTrue),
         quizButton(Colors.red, "False", guessFalse),
-        scoreKeeperWidget(scoreKeeper),
+        scoreKeeperWidget(aQuizLibrary.scoreKeeper),
       ],
     );
   }
 
   void guessTrue() {
-    currentGuess = true;
+    aQuizLibrary.currentGuess = true;
     checkAnswer();
   }
 
   void guessFalse() {
-    currentGuess = false;
+    aQuizLibrary.currentGuess = false;
     checkAnswer();
   }
 
   void checkAnswer() {
     setState(() {
-      if (qIndex == -1) {
+      if (aQuizLibrary.qIndex == -1) {
       } else {
-        if (currentGuess == questions[qIndex].questionAnswer) {
+        if (aQuizLibrary.currentGuess ==
+            aQuizLibrary.questions[aQuizLibrary.qIndex].questionAnswer) {
           addCheck();
         } else {
           addX();
         }
       }
-      qIndex++;
-      if (qIndex == 4) {
-        qIndex = 3;
+      aQuizLibrary.qIndex++;
+      if (aQuizLibrary.qIndex == 13) {
+        aQuizLibrary.qIndex = 12;
       }
-      currentGuess = -1;
-      currentQuestion = questions[qIndex].questionText;
+      aQuizLibrary.currentGuess = -1;
+      aQuizLibrary.currentQuestion =
+          aQuizLibrary.questions[aQuizLibrary.qIndex].questionText;
     });
   }
 
   void addCheck() {
     setState(() {
-      scoreKeeper.add(const Icon(Icons.check, color: Colors.green));
+      aQuizLibrary.scoreKeeper
+          .add(const Icon(Icons.check, color: Colors.green));
     });
   }
 
   void addX() {
     setState(() {
-      scoreKeeper.add(const Icon(Icons.close, color: Colors.red));
+      aQuizLibrary.scoreKeeper.add(const Icon(Icons.close, color: Colors.red));
     });
   }
 }
