@@ -32,8 +32,16 @@ class QuizHome extends StatefulWidget {
 
 class _QuizHome extends State<QuizHome> {
   List<Icon> scoreKeeper = [Icon(Icons.check)];
-
+  List<String> questions = [
+    'you cannot lead a cow down stairs',
+    '25% of your bones are in your feed',
+    'slug blood is green'
+  ];
+  List<bool> answers = [false, true, true];
+  int index = 0;
   String answer = 'null';
+  dynamic currentGuess = -1;
+  String currentQuestion = '';
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +52,9 @@ class _QuizHome extends State<QuizHome> {
         Center(
           child: Text(answer, style: TextStyle(color: Colors.white)),
         ),
-        quizQuestion("question goes here"),
-        quizButton(Colors.green, "True", addCheck),
-        quizButton(Colors.red, "False", addX),
+        quizQuestion(currentQuestion),
+        quizButton(Colors.green, "True", guessTrue),
+        quizButton(Colors.red, "False", guessFalse),
         scoreKeeperWidget(),
         //TODO: add score keeping function
       ],
@@ -57,10 +65,34 @@ class _QuizHome extends State<QuizHome> {
     return Row(children: scoreKeeper);
   }
 
+  void guessTrue() {
+    currentGuess = true;
+    checkAnswer();
+  }
+
+  void guessFalse() {
+    currentGuess = false;
+    checkAnswer();
+  }
+
+  void checkAnswer() {
+    setState(() {
+      if (currentGuess == answers[index]) {
+        addCheck();
+      } else {
+        addX();
+      }
+      index++;
+      currentGuess = -1;
+      currentQuestion = questions[index];
+      print(index);
+    });
+  }
+
   void addCheck() {
     setState(() {
       scoreKeeper.add(Icon(Icons.check, color: Colors.green));
-      trued();
+      falsed();
     });
   }
 
