@@ -35,6 +35,7 @@ class _StoryPageState extends State<StoryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              Text(theStoryBrain.getStoryNumber()),
               Expanded(
                 flex: 12,
                 child: Center(
@@ -50,7 +51,9 @@ class _StoryPageState extends State<StoryPage> {
                 flex: 2,
                 child: FlatButton(
                   onPressed: () {
-                    theStoryBrain.nextStory(1);
+                    setState(() {
+                      theStoryBrain.nextStory(1);
+                    });
                   },
                   color: Colors.red,
                   child: Text(
@@ -70,7 +73,9 @@ class _StoryPageState extends State<StoryPage> {
                 //TODO: Step 28 - Set the "visible" property of the Visibility Widget to equal the output from the buttonShouldBeVisible() method in the storyBrain.
                 child: FlatButton(
                   onPressed: () {
-                    theStoryBrain.nextStory(2);
+                    setState(() {
+                      theStoryBrain.nextStory(2);
+                    });
                   },
                   color: Colors.blue,
                   child: Text(

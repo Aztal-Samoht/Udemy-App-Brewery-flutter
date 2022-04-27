@@ -3,6 +3,8 @@ import 'story.dart';
 class StoryBrain {
   int _storyNumber = 0;
 
+  bool _storyOver = false;
+
   List<Story> _storyData = [
     Story(
         'Your car has blown a tire on a winding road in the middle of nowhere with no cell phone reception. You decide to hitchhike. A rusty pickup truck rumbles to a stop next to you. A man with a wide brimmed hat with soulless eyes opens the passenger door for you and asks: "Need a ride, boy?".',
@@ -45,12 +47,27 @@ class StoryBrain {
     return _storyData[_storyNumber].getChoice2();
   }
 
-  void incStoryNumber() {
-    _storyNumber++;
+  String getStoryNumber() {
+    return _storyNumber.toString();
   }
 
   void nextStory(int choiceNumber) {
     _storyNumber += choiceNumber;
+    _checkForEnd();
+    if (_storyOver) {
+      _restart();
+    }
+  }
+
+  void _restart() {
+    _storyNumber = 0;
+    _storyOver = false;
+  }
+
+  void _checkForEnd() {
+    if (_storyNumber > 2) {
+      _storyOver = true;
+    }
   }
 }
 //TODO: Step 23 - Use the storyNumber property inside getStory(), getChoice1() and getChoice2() so that it gets the updated story and choices rather than always just the first (0th) one.
