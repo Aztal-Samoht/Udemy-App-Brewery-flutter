@@ -3,7 +3,7 @@ import 'package:project_e_flutter_quiz_app/question.dart';
 
 class QuizLib {
   List<Widget> scoreKeeper = [Container(height: 25)];
-  final List<Question> questions = [
+  final List<Question> _questions = [
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
     Question('A slug\'s blood is green.', true),
@@ -30,7 +30,34 @@ class QuizLib {
         true),
     Question("congrats, you finished the quiz", true)
   ];
-  int qIndex = -1;
-  dynamic currentGuess = -1;
-  String currentQuestion = 'Welcome to the quiz, press any button to start';
+  int _qIndex = 0;
+  dynamic _currentGuess = -1;
+
+  String getCurrentText() {
+    return _questions[_qIndex].getText();
+  }
+
+  bool getCurrentAnswer() {
+    return _questions[_qIndex].getAnswer();
+  }
+
+  void setGuess(bool a) {
+    _currentGuess = a;
+  }
+
+  void setIndex(int a) {
+    _qIndex = a;
+  }
+
+  int getIndex() {
+    return _qIndex;
+  }
+
+  void incIndex() {
+    _qIndex++;
+  }
+
+  dynamic getGuess() {
+    return _currentGuess;
+  }
 }

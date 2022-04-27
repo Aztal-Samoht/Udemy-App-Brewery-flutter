@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_e_flutter_quiz_app/question.dart';
 import 'package:project_e_flutter_quiz_app/quiz_widgets.dart';
-import 'quiz_lib.dart';
+import 'quiz_util.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
   runApp(const MyApp());
@@ -41,42 +41,45 @@ class _QuizHome extends State<QuizHome> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        quizQuestion(aQuizLibrary.currentQuestion),
+        quizQuestion(aQuizLibrary.getCurrentText()),
         quizButton(Colors.green, "True", guessTrue),
         quizButton(Colors.red, "False", guessFalse),
+        quizButton(
+            Colors.blue, "make alert", () => _onBasicAlertPressed(context)),
         scoreKeeperWidget(aQuizLibrary.scoreKeeper),
       ],
     );
   }
 
+  _onBasicAlertPressed(context) {
+    Alert(
+      context: context,
+      title: "RFLUTTER ALERT",
+      desc: "Flutter is more awesome with RFlutter Alert.",
+    ).show();
+  }
+
   void guessTrue() {
-    aQuizLibrary.currentGuess = true;
+    aQuizLibrary.setGuess(true);
     checkAnswer();
   }
 
   void guessFalse() {
-    aQuizLibrary.currentGuess = false;
+    aQuizLibrary.setGuess(false);
     checkAnswer();
   }
 
   void checkAnswer() {
     setState(() {
-      if (aQuizLibrary.qIndex == -1) {
+      if (aQuizLibrary.getGuess() == aQuizLibrary.getCurrentAnswer()) {
+        addCheck();
       } else {
-        if (aQuizLibrary.currentGuess ==
-            aQuizLibrary.questions[aQuizLibrary.qIndex].questionAnswer) {
-          addCheck();
-        } else {
-          addX();
-        }
+        addX();
       }
-      aQuizLibrary.qIndex++;
-      if (aQuizLibrary.qIndex == 13) {
-        aQuizLibrary.qIndex = 12;
+      aQuizLibrary.incIndex();
+      if (aQuizLibrary.getIndex() == 13) {
+        aQuizLibrary.setIndex(12);
       }
-      aQuizLibrary.currentGuess = -1;
-      aQuizLibrary.currentQuestion =
-          aQuizLibrary.questions[aQuizLibrary.qIndex].questionText;
     });
   }
 
