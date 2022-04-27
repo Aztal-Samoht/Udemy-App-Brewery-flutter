@@ -41,7 +41,7 @@ class StoryBrain {
     return _storyData[_storyIndex].getChoice1();
   }
 
-  String getCoice2() {
+  String getChoice2() {
     return _storyData[_storyIndex].getChoice2();
   }
 
