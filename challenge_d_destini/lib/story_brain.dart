@@ -1,7 +1,7 @@
 import 'story.dart';
 
 class StoryBrain {
-  int _storyIndex = 0;
+  int _storyNumber = 0;
 
   List<Story> _storyData = [
     Story(
@@ -38,15 +38,15 @@ class StoryBrain {
   }
 
   String getChoice1() {
-    return _storyData[_storyIndex].getChoice1();
+    return _storyData[_storyNumber].getChoice1();
   }
 
   String getChoice2() {
-    return _storyData[_storyIndex].getChoice2();
+    return _storyData[_storyNumber].getChoice2();
   }
 
-  void incStoryIndex() {
-    _storyIndex++;
+  void incStoryNumber() {
+    _storyNumber++;
   }
 }
 //TODO: Step 23 - Use the storyNumber property inside getStory(), getChoice1() and getChoice2() so that it gets the updated story and choices rather than always just the first (0th) one.
