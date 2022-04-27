@@ -44,19 +44,24 @@ class _QuizHome extends State<QuizHome> {
         quizQuestion(aQuizLibrary.getCurrentText()),
         quizButton(Colors.green, "True", guessTrue),
         quizButton(Colors.red, "False", guessFalse),
-        quizButton(
-            Colors.blue, "make alert", () => _onBasicAlertPressed(context)),
-        scoreKeeperWidget(aQuizLibrary.scoreKeeper),
+        scoreKeeperWidget(aQuizLibrary.getScoreKeeper()),
       ],
     );
   }
 
-  _onBasicAlertPressed(context) {
+  _endOfQuiz(context) {
     Alert(
-      context: context,
-      title: "RFLUTTER ALERT",
-      desc: "Flutter is more awesome with RFlutter Alert.",
-    ).show();
+        context: context,
+        title: "End of Quiz",
+        desc: "click the button, then outside the alert to retake",
+        buttons: [
+          DialogButton(
+              child: Text("Restart Quiz"), onPressed: () => _resetQuiz())
+        ]).show();
+  }
+
+  _resetQuiz() {
+    aQuizLibrary.reset();
   }
 
   void guessTrue() {
@@ -78,7 +83,9 @@ class _QuizHome extends State<QuizHome> {
       }
       aQuizLibrary.incIndex();
       if (aQuizLibrary.getIndex() == 13) {
-        aQuizLibrary.setIndex(12);
+        aQuizLibrary.setIndex(0);
+        aQuizLibrary.reset();
+        _endOfQuiz(context);
       }
     });
   }

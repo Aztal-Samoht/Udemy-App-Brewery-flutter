@@ -60,4 +60,13 @@ class QuizLib {
   dynamic getGuess() {
     return _currentGuess;
   }
+
+  void reset() {
+    _qIndex = 0;
+    scoreKeeper = [Container(height: 25)];
+  }
+
+  List<Widget> getScoreKeeper() {
+    return scoreKeeper;
+  }
 }
