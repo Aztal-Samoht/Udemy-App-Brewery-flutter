@@ -1,7 +1,7 @@
 class Story {
-  String _storyTitle;
-  String _choice1;
-  String _choice2;
+  String _storyTitle = '';
+  String _choice1 = '';
+  String _choice2 = '';
 
   Story(String t, String c1, String c2) {
     this._storyTitle = t;

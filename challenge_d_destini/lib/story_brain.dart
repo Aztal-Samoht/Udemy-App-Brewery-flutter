@@ -27,6 +27,10 @@ class StoryBrain {
         'Restart',
         '')
   ];
+  StoryBrain() {
+    print('made a StoryBrain.');
+  }
+
   String getStory() {
     return _storyData[0].getStoryTitle();
   }
