@@ -1,8 +1,10 @@
+import 'package:bmi_calculator/sex_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'my_card.dart';
 import 'my_row.dart';
 import 'constants.dart';
+import 'sex_button.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -20,23 +22,12 @@ class _InputPageState extends State<InputPage> {
         children: [
           myRow(children: [
             myCard(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.mars,
-                      size: iconSize,
-                    ),
-                    SizedBox(height: 15),
-                    Text(
-                      'MALE',
-                      style: TextStyle(fontSize: 18, color: fontColor),
-                    )
-                  ],
-                ),
+                child: sexButton(text: 'MALE', sexIcon: FontAwesomeIcons.mars),
                 colour: activeCardColor),
-            myCard(child: Text('test'), colour: activeCardColor)
+            myCard(
+                child:
+                    sexButton(text: 'HUMAN', sexIcon: FontAwesomeIcons.venus),
+                colour: activeCardColor)
           ]),
           myRow(children: [myCard(colour: activeCardColor)]),
           myRow(children: [
