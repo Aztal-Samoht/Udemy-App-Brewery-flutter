@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'my_card.dart';
+import 'my_row.dart';
 
 Color cardColor = Color(0xff1d1e33);
 
@@ -16,57 +18,31 @@ class _InputPageState extends State<InputPage> {
       ),
       body: Column(
         children: [
-          widgetRow(
-            [
-              myCard(child: Text("test"), colour: Colors.red),
-              myCard(child: Text('test'), colour: cardColor)
-            ],
-          ),
-          widgetRow(
-            [
-              myCard(colour: Colors.pink),
-            ],
-          ),
-          widgetRow(
-            [myCard(colour: cardColor), myCard(colour: cardColor)],
-          ),
+          myRow(children: [
+            myCard(child: Text("test"), colour: Colors.red),
+            myCard(child: Text('test'), colour: cardColor)
+          ]),
+          myRow(children: [myCard(colour: Colors.green)]),
+          myRow(
+              children: [myCard(colour: cardColor), myCard(colour: cardColor)]),
+          Container(
+            color: Colors.pink,
+            height: 80,
+          )
         ],
       ),
     );
   }
 }
 
-Expanded widgetRow(List<Widget> stuff) {
-  return Expanded(
-      flex: 1,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: stuff,
-      ));
-}
-
-class myCard extends StatelessWidget {
-  myCard({this.child, this.colour});
-
-  final Widget child;
-  final Color colour;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Container(
-        margin: EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-          color: this.colour,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: this.child,
-        // child: Text('Body text'),
-      ),
-    );
-  }
-}
+// Expanded widgetRow(List<Widget> stuff) {
+//   return Expanded(
+//       flex: 1,
+//       child: Row(
+//         crossAxisAlignment: CrossAxisAlignment.stretch,
+//         children: stuff,
+//       ));
+// }
 
 // floatingActionButton: Theme(
 //   data: ThemeData(
