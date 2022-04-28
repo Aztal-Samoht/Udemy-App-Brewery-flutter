@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'my_card.dart';
 import 'my_row.dart';
-
-Color cardColor = Color(0xff1d1e33);
+import 'constants.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -19,15 +18,16 @@ class _InputPageState extends State<InputPage> {
       body: Column(
         children: [
           myRow(children: [
-            myCard(child: Text("test"), colour: Colors.red),
+            myCard(child: Text("test"), colour: cardColor),
             myCard(child: Text('test'), colour: cardColor)
           ]),
-          myRow(children: [myCard(colour: Colors.green)]),
+          myRow(children: [myCard(colour: cardColor)]),
           myRow(
               children: [myCard(colour: cardColor), myCard(colour: cardColor)]),
           Container(
-            color: Colors.pink,
-            height: 80,
+            color: bottomBarColor,
+            height: bottomBarHeight,
+            width: double.infinity,
           )
         ],
       ),

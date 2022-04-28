@@ -1,4 +1,6 @@
+import 'package:bmi_calculator/constants.dart';
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 class myCard extends StatelessWidget {
   myCard({this.child, this.colour});
@@ -11,10 +13,10 @@ class myCard extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Container(
-        margin: EdgeInsets.all(15.0),
+        margin: EdgeInsets.all(cardMargin),
         decoration: BoxDecoration(
           color: this.colour,
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(cardRadius),
         ),
         child: this.child,
         // child: Text('Body text'),
