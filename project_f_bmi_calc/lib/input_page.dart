@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'my_card.dart';
 import 'my_row.dart';
 import 'constants.dart';
@@ -18,12 +19,30 @@ class _InputPageState extends State<InputPage> {
       body: Column(
         children: [
           myRow(children: [
-            myCard(child: Text("test"), colour: cardColor),
-            myCard(child: Text('test'), colour: cardColor)
+            myCard(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      FontAwesomeIcons.mars,
+                      size: iconSize,
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      'MALE',
+                      style: TextStyle(fontSize: 18, color: fontColor),
+                    )
+                  ],
+                ),
+                colour: activeCardColor),
+            myCard(child: Text('test'), colour: activeCardColor)
           ]),
-          myRow(children: [myCard(colour: cardColor)]),
-          myRow(
-              children: [myCard(colour: cardColor), myCard(colour: cardColor)]),
+          myRow(children: [myCard(colour: activeCardColor)]),
+          myRow(children: [
+            myCard(colour: activeCardColor),
+            myCard(colour: activeCardColor)
+          ]),
           Container(
             color: bottomBarColor,
             height: bottomBarHeight,
