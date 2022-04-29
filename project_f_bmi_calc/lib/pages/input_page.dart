@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/pages/results.dart';
 import 'package:bmi_calculator/widgets/counting_pannel.dart';
 import 'package:bmi_calculator/widgets/sex_card.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _InputPageState extends State<InputPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: kAppBar;
+      appBar: kAppBar,
       body: Column(
         children: [
           myRow(children: [
@@ -133,10 +134,22 @@ class _InputPageState extends State<InputPage> {
               ),
             ],
           ),
-          Container(
-            color: kAccentColor,
-            height: kBottomBarHeight,
-            width: double.infinity,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ResultsPage();
+                  },
+                ),
+              );
+            },
+            child: Container(
+              color: kAccentColor,
+              height: kBottomBarHeight,
+              width: double.infinity,
+            ),
           )
         ],
       ),
