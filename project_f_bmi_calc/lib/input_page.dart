@@ -1,4 +1,5 @@
 import 'package:bmi_calculator/counting_pannel.dart';
+import 'package:bmi_calculator/round_icon_button.dart';
 import 'package:bmi_calculator/sex_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,14 +23,6 @@ class _InputPageState extends State<InputPage> {
   int age = 25;
   void setSex(Gender pick) {
     selection = pick;
-  }
-
-  int inc(int a) {
-    return a++;
-  }
-
-  int dec(int a) {
-    return a--;
   }
 
   @override
@@ -56,6 +49,7 @@ class _InputPageState extends State<InputPage> {
               func: () {
                 setState(() {
                   setSex(Gender.human);
+                  print('human picked');
                 });
               },
               child: sexCard(text: 'HUMAN', sexIcon: FontAwesomeIcons.venus),
@@ -99,33 +93,75 @@ class _InputPageState extends State<InputPage> {
               ),
             )
           ]),
-          myRow(children: [
-            CountingPannel(
-              colour: kCardColor,
-              initial: this.mass.toDouble(),
-              title: 'WEIGHT',
-              add: () {
-                setState(() {
-                  this.mass = inc(this.mass);
-                  print(this.mass.toString());
-                });
-              },
-              subtract: () {
-                setState(() {
-                  this.mass = dec(this.mass);
-                  print(this.mass.toString());
-                });
-              },
-            ),
-            MyButton(),
-            //CountingPannel(colour: kCardColor, initial: 25, title: 'AGE')
-          ]),
+          myRow(
+            children: [
+              CountingPanel(
+                colour: kCardColor,
+                initial: this.mass,
+                title: 'WEIGHT',
+                children: [
+                  RoundIconButton(
+                    icon: FontAwesomeIcons.plus,
+                    onPressed: () {
+                      setState(() {
+                        this.mass++;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
           Container(
             color: kAccentColor,
             height: kBottomBarHeight,
             width: double.infinity,
           )
         ],
+      ),
+    );
+  }
+}
+
+class CountingPanel extends StatelessWidget {
+  CountingPanel({this.colour, this.initial, this.title, this.children});
+
+  final Color colour;
+  final int initial;
+  final String title;
+  final List<RoundIconButton> children;
+  // final Function add;
+  // final Function subtract;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Container(
+        margin: EdgeInsets.all(kCardMargin),
+        decoration: BoxDecoration(
+          color: this.colour,
+          borderRadius: BorderRadius.circular(kCardRadius),
+        ),
+        child: Column(
+          children: [
+            Text(
+              this.title,
+              style: kLabel,
+            ),
+            Text(
+              this.initial.round().toString(),
+              style: kNumberLabel,
+            ),
+            Container(height: 5),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: this.children,
+            )
+          ],
+        ),
+        // child: Text('Body text'),
       ),
     );
   }
