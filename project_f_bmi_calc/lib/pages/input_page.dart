@@ -1,4 +1,4 @@
-import 'package:bmi_calculator/pages/results.dart';
+import 'package:bmi_calculator/pages/results_page.dart';
 import 'package:bmi_calculator/widgets/counting_pannel.dart';
 import 'package:bmi_calculator/widgets/sex_card.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ import '../widgets/my_row.dart';
 import '../res/constants.dart';
 import '../widgets/sex_card.dart';
 import '../res/gender.dart';
+import '../widgets/bottom_button.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -48,6 +49,10 @@ class _InputPageState extends State<InputPage> {
     setState(() {
       this.age--;
     });
+  }
+
+  double getBMI() {
+    return mass / height / height * 10000;
   }
 
   @override
@@ -134,23 +139,8 @@ class _InputPageState extends State<InputPage> {
               ),
             ],
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ResultsPage();
-                  },
-                ),
-              );
-            },
-            child: Container(
-              color: kAccentColor,
-              height: kBottomBarHeight,
-              width: double.infinity,
-            ),
-          )
+          BottomButton(
+              text: 'Calculate BMI', location: ResultsPage(bmi: getBMI())),
         ],
       ),
     );
