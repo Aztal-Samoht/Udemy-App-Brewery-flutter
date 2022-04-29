@@ -1,12 +1,12 @@
-import 'package:bmi_calculator/counting_pannel.dart';
-import 'package:bmi_calculator/sex_card.dart';
+import 'package:bmi_calculator/widgets/counting_pannel.dart';
+import 'package:bmi_calculator/widgets/sex_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'my_button.dart';
-import 'my_row.dart';
-import 'constants.dart';
-import 'sex_card.dart';
-import 'gender.dart';
+import '../widgets/my_button.dart';
+import '../widgets/my_row.dart';
+import '../res/constants.dart';
+import '../widgets/sex_card.dart';
+import '../res/gender.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -52,9 +52,7 @@ class _InputPageState extends State<InputPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('BMI CALCULATOR'),
-      ),
+      appBar: kAppBar;
       body: Column(
         children: [
           myRow(children: [

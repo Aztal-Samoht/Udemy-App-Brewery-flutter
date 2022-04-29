@@ -15,4 +15,7 @@ const TextStyle kNumberLabel =
     TextStyle(fontSize: 50, fontWeight: FontWeight.w900);
 const Color kSliderInactive = Color(0xff8d8e98);
 const Color kSliderActive = Colors.white;
+final AppBar kAppBar = AppBar(
+  title: const Text('BMI CALCULATOR'),
+);
 // const SliderThemeData.of(context).copyOf()

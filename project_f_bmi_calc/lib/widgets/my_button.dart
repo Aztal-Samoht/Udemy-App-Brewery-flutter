@@ -1,6 +1,6 @@
-import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/res/constants.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../res/constants.dart';
 
 class MyButton extends StatelessWidget {
   MyButton({this.child, this.colour, this.func});

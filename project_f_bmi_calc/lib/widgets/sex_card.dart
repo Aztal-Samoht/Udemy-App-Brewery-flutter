@@ -1,6 +1,6 @@
-import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/res/constants.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../res/constants.dart';
 
 class sexCard extends StatelessWidget {
   sexCard({this.text, this.sexIcon});

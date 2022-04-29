@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'custom_theme.dart';
-import 'input_page.dart';
+import 'res/custom_theme.dart';
+import 'pages/input_page.dart';
 
 void main() => runApp(BMICalculator());
 
