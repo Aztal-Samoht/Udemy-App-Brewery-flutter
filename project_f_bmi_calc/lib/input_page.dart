@@ -12,6 +12,22 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Color maleBackground = inactiveCardColor;
+  Color humanBackground = inactiveCardColor;
+
+  void maleSelected(bool selection) {
+    setState(() {
+      if (selection) {
+        maleBackground = activeCardColor;
+        humanBackground = inactiveCardColor;
+        print('male picked');
+        return;
+      }
+      maleBackground = inactiveCardColor;
+      humanBackground = activeCardColor;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,18 +38,26 @@ class _InputPageState extends State<InputPage> {
         children: [
           myRow(children: [
             myCard(
+              colour: maleBackground,
+              child: GestureDetector(
+                onTap: () {
+                  maleSelected(true);
+                },
                 child: sexButton(text: 'MALE', sexIcon: FontAwesomeIcons.mars),
-                colour: activeCardColor),
+              ),
+            ),
             myCard(
-                child:
-                    sexButton(text: 'HUMAN', sexIcon: FontAwesomeIcons.venus),
-                colour: activeCardColor)
+                child: GestureDetector(
+                    onTap: () {
+                      maleSelected(false);
+                    },
+                    child: sexButton(
+                        text: 'HUMAN', sexIcon: FontAwesomeIcons.venus)),
+                colour: humanBackground)
           ]),
-          myRow(children: [myCard(colour: activeCardColor)]),
-          myRow(children: [
-            myCard(colour: activeCardColor),
-            myCard(colour: activeCardColor)
-          ]),
+          myRow(children: [myCard(colour: cardColor)]),
+          myRow(
+              children: [myCard(colour: cardColor), myCard(colour: cardColor)]),
           Container(
             color: bottomBarColor,
             height: bottomBarHeight,
