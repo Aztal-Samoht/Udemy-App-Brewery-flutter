@@ -21,8 +21,33 @@ class _InputPageState extends State<InputPage> {
   int height = 180;
   int mass = 100;
   int age = 25;
+
   void setSex(Gender pick) {
     selection = pick;
+  }
+
+  void incMass() {
+    setState(() {
+      this.mass++;
+    });
+  }
+
+  void decMass() {
+    setState(() {
+      this.mass--;
+    });
+  }
+
+  void incAge() {
+    setState(() {
+      this.age++;
+    });
+  }
+
+  void decAge() {
+    setState(() {
+      this.age--;
+    });
   }
 
   @override
@@ -99,16 +124,15 @@ class _InputPageState extends State<InputPage> {
                 colour: kCardColor,
                 initial: this.mass,
                 title: 'WEIGHT',
-                children: [
-                  RoundIconButton(
-                    icon: FontAwesomeIcons.plus,
-                    onPressed: () {
-                      setState(() {
-                        this.mass++;
-                      });
-                    },
-                  ),
-                ],
+                add: incMass,
+                sub: decMass,
+              ),
+              CountingPanel(
+                colour: kCardColor,
+                initial: this.age,
+                title: 'AGE',
+                add: incAge,
+                sub: decAge,
               ),
             ],
           ),
@@ -118,50 +142,6 @@ class _InputPageState extends State<InputPage> {
             width: double.infinity,
           )
         ],
-      ),
-    );
-  }
-}
-
-class CountingPanel extends StatelessWidget {
-  CountingPanel({this.colour, this.initial, this.title, this.children});
-
-  final Color colour;
-  final int initial;
-  final String title;
-  final List<RoundIconButton> children;
-  // final Function add;
-  // final Function subtract;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Container(
-        margin: EdgeInsets.all(kCardMargin),
-        decoration: BoxDecoration(
-          color: this.colour,
-          borderRadius: BorderRadius.circular(kCardRadius),
-        ),
-        child: Column(
-          children: [
-            Text(
-              this.title,
-              style: kLabel,
-            ),
-            Text(
-              this.initial.round().toString(),
-              style: kNumberLabel,
-            ),
-            Container(height: 5),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: this.children,
-            )
-          ],
-        ),
-        // child: Text('Body text'),
       ),
     );
   }
