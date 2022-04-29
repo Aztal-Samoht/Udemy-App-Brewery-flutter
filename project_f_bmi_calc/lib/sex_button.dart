@@ -21,7 +21,7 @@ class sexButton extends StatelessWidget {
         SizedBox(height: 15),
         Text(
           this.text,
-          style: TextStyle(fontSize: 18, color: fontColor),
+          style: label,
         )
       ],
     );

@@ -9,3 +9,4 @@ const Color bottomBarColor = Color(0xffeb1555);
 const double bottomBarHeight = 80.0;
 const double iconSize = 80.0;
 const Color fontColor = Color(0xff8d8e98);
+const TextStyle label = TextStyle(fontSize: 18, color: fontColor);

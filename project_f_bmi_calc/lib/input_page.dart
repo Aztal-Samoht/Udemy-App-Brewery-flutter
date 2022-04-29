@@ -5,6 +5,7 @@ import 'my_card.dart';
 import 'my_row.dart';
 import 'constants.dart';
 import 'sex_button.dart';
+import 'gender.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -14,17 +15,10 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Color maleBackground = inactiveCardColor;
   Color humanBackground = inactiveCardColor;
-
-  void maleSelected(bool selection) {
+  Gender selection;
+  void setSex(Gender pick) {
     setState(() {
-      if (selection) {
-        maleBackground = activeCardColor;
-        humanBackground = inactiveCardColor;
-        print('male picked');
-        return;
-      }
-      maleBackground = inactiveCardColor;
-      humanBackground = activeCardColor;
+      selection = pick;
     });
   }
 
@@ -38,24 +32,41 @@ class _InputPageState extends State<InputPage> {
         children: [
           myRow(children: [
             myCard(
-              colour: maleBackground,
-              child: GestureDetector(
-                onTap: () {
-                  maleSelected(true);
-                },
-                child: sexButton(text: 'MALE', sexIcon: FontAwesomeIcons.mars),
-              ),
+              func: () {
+                setState(() {
+                  setSex(Gender.male);
+                });
+              },
+              child: sexButton(text: 'MALE', sexIcon: FontAwesomeIcons.mars),
+              colour: maleBackground = selection == Gender.male
+                  ? activeCardColor
+                  : inactiveCardColor,
             ),
             myCard(
-                child: GestureDetector(
-                    onTap: () {
-                      maleSelected(false);
-                    },
-                    child: sexButton(
-                        text: 'HUMAN', sexIcon: FontAwesomeIcons.venus)),
-                colour: humanBackground)
+              func: () {
+                setState(() {
+                  setSex(Gender.human);
+                });
+              },
+              child: sexButton(text: 'HUMAN', sexIcon: FontAwesomeIcons.venus),
+              colour: humanBackground = selection == Gender.human
+                  ? activeCardColor
+                  : inactiveCardColor,
+            )
           ]),
-          myRow(children: [myCard(colour: cardColor)]),
+          myRow(children: [
+            myCard(
+              colour: cardColor,
+              child: Column(
+                children: [
+                  Text(
+                    'HEIGHT',
+                    style: label,
+                  )
+                ],
+              ),
+            )
+          ]),
           myRow(
               children: [myCard(colour: cardColor), myCard(colour: cardColor)]),
           Container(
