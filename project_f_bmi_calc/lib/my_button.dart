@@ -1,10 +1,9 @@
 import 'package:bmi_calculator/constants.dart';
-import 'package:bmi_calculator/gender.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
-class myCard extends StatelessWidget {
-  myCard({this.child, this.colour, this.func});
+class MyButton extends StatelessWidget {
+  MyButton({this.child, this.colour, this.func});
 
   final Widget child;
   final Color colour;
@@ -15,10 +14,10 @@ class myCard extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: Container(
-        margin: EdgeInsets.all(cardMargin),
+        margin: EdgeInsets.all(kCardMargin),
         decoration: BoxDecoration(
           color: this.colour,
-          borderRadius: BorderRadius.circular(cardRadius),
+          borderRadius: BorderRadius.circular(kCardRadius),
         ),
         child: GestureDetector(onTap: func, child: this.child),
         // child: Text('Body text'),

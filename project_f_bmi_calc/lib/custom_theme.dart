@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
-ThemeData myBMItheme() {
+ThemeData getMyBMItheme(BuildContext context) {
   return ThemeData.dark().copyWith(
     colorScheme: ColorScheme.dark().copyWith(
       primary: Color(0xff0a0e21),
@@ -9,6 +10,14 @@ ThemeData myBMItheme() {
     textTheme: TextTheme(
       bodyText1: TextStyle(color: Colors.green),
       bodyText2: TextStyle(color: Colors.white),
+    ),
+    sliderTheme: SliderTheme.of(context).copyWith(
+      activeTrackColor: kSliderActive,
+      inactiveTrackColor: kSliderInactive,
+      thumbColor: kAccentColor,
+      overlayColor: kAccentColorA16,
+      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10, elevation: 2.0),
+      overlayShape: RoundSliderOverlayShape(overlayRadius: 20),
     ),
   );
 }

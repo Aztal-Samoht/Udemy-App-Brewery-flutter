@@ -1,10 +1,11 @@
-import 'package:bmi_calculator/sex_button.dart';
+import 'package:bmi_calculator/counting_pannel.dart';
+import 'package:bmi_calculator/sex_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'my_card.dart';
+import 'my_button.dart';
 import 'my_row.dart';
 import 'constants.dart';
-import 'sex_button.dart';
+import 'sex_card.dart';
 import 'gender.dart';
 
 class InputPage extends StatefulWidget {
@@ -13,13 +14,22 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-  Color maleBackground = inactiveCardColor;
-  Color humanBackground = inactiveCardColor;
+  Color maleBackground = kInactiveCardColor;
+  Color humanBackground = kInactiveCardColor;
   Gender selection;
+  int height = 180;
+  int mass = 100;
+  int age = 25;
   void setSex(Gender pick) {
-    setState(() {
-      selection = pick;
-    });
+    selection = pick;
+  }
+
+  int inc(int a) {
+    return a++;
+  }
+
+  int dec(int a) {
+    return a--;
   }
 
   @override
@@ -31,47 +41,88 @@ class _InputPageState extends State<InputPage> {
       body: Column(
         children: [
           myRow(children: [
-            myCard(
+            MyButton(
               func: () {
                 setState(() {
                   setSex(Gender.male);
                 });
               },
-              child: sexButton(text: 'MALE', sexIcon: FontAwesomeIcons.mars),
+              child: sexCard(text: 'MALE', sexIcon: FontAwesomeIcons.mars),
               colour: maleBackground = selection == Gender.male
-                  ? activeCardColor
-                  : inactiveCardColor,
+                  ? kActiveCardColor
+                  : kInactiveCardColor,
             ),
-            myCard(
+            MyButton(
               func: () {
                 setState(() {
                   setSex(Gender.human);
                 });
               },
-              child: sexButton(text: 'HUMAN', sexIcon: FontAwesomeIcons.venus),
+              child: sexCard(text: 'HUMAN', sexIcon: FontAwesomeIcons.venus),
               colour: humanBackground = selection == Gender.human
-                  ? activeCardColor
-                  : inactiveCardColor,
+                  ? kActiveCardColor
+                  : kInactiveCardColor,
             )
           ]),
           myRow(children: [
-            myCard(
-              colour: cardColor,
+            MyButton(
+              colour: kCardColor,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'HEIGHT',
-                    style: label,
-                  )
-                ],
+                    style: kLabel,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      Text(height.toString(), style: kNumberLabel),
+                      Text('cm', style: kLabel),
+                    ],
+                  ),
+                  Container(),
+                  Slider(
+                      max: 240.0,
+                      min: 90,
+                      value: height.toDouble(),
+                      label: 'height',
+                      onChanged: (double x) {
+                        setState(() {
+                          height = x.round();
+                        });
+                      }),
+                ], //children
               ),
             )
           ]),
-          myRow(
-              children: [myCard(colour: cardColor), myCard(colour: cardColor)]),
+          myRow(children: [
+            CountingPannel(
+              colour: kCardColor,
+              initial: this.mass.toDouble(),
+              title: 'WEIGHT',
+              add: () {
+                setState(() {
+                  this.mass = inc(this.mass);
+                  print(this.mass.toString());
+                });
+              },
+              subtract: () {
+                setState(() {
+                  this.mass = dec(this.mass);
+                  print(this.mass.toString());
+                });
+              },
+            ),
+            MyButton(),
+            //CountingPannel(colour: kCardColor, initial: 25, title: 'AGE')
+          ]),
           Container(
-            color: bottomBarColor,
-            height: bottomBarHeight,
+            color: kAccentColor,
+            height: kBottomBarHeight,
             width: double.infinity,
           )
         ],

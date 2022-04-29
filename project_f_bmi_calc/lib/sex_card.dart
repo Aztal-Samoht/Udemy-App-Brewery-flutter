@@ -2,8 +2,8 @@ import 'package:bmi_calculator/constants.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
 
-class sexButton extends StatelessWidget {
-  sexButton({this.text, this.sexIcon});
+class sexCard extends StatelessWidget {
+  sexCard({this.text, this.sexIcon});
 
   final String text;
   final IconData sexIcon;
@@ -16,12 +16,12 @@ class sexButton extends StatelessWidget {
       children: [
         Icon(
           this.sexIcon,
-          size: iconSize,
+          size: kIconSize,
         ),
         SizedBox(height: 15),
         Text(
           this.text,
-          style: label,
+          style: kLabel,
         )
       ],
     );
