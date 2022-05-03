@@ -11,35 +11,51 @@ class _LoadingScreenState extends State<LoadingScreen> {
   bool locationIsEnabled;
   LocationPermission permission;
   bool hasPermission;
-
+  bool debugmode = false;
+  var blank = '';
   void _getLocation() async {
     try {
+      debugmode ? print('INFO -- trying to get location') : blank = '';
       locationIsEnabled = await Geolocator.isLocationServiceEnabled();
       permission = await Geolocator.checkPermission();
-      hasPermission;
       if (permission == LocationPermission.always ||
           permission == LocationPermission.whileInUse) {
         hasPermission = true;
       } else {
         hasPermission = false;
       }
+      debugmode ? print('INFO -- checking permissions') : blank = '';
       if (!locationIsEnabled) {
         throw Exception('location is not enabled');
       }
       if (!hasPermission) {
         throw Exception('permission is not granted');
       }
+      debugmode ? print('INFO -- getting position via giolocator') : blank = '';
       Position position = await Geolocator.getCurrentPosition();
+      debugmode ? print('INFO -- printing position') : blank = '';
       print(position);
     } catch (e) {
-      print("location not avalable");
+      print("could not get location becaus'");
       print(e);
+    }
+  }
+
+  void updateStatus() async {
+    locationIsEnabled = await Geolocator.isLocationServiceEnabled();
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      hasPermission = true;
+    } else {
+      hasPermission = false;
     }
   }
 
   @override
   void initState() {
     super.initState();
+    print('getting location');
     _getLocation();
   }
 
@@ -50,21 +66,41 @@ class _LoadingScreenState extends State<LoadingScreen> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          StatusText(enabled: locationIsEnabled, permission: permission),
+          StatusText(
+              enabled: locationIsEnabled,
+              permission: permission,
+              debug: debugmode),
           TextButton(
-              onPressed: () {
-                setState(() {
-                  Geolocator.requestPermission();
-                  _getLocation();
-                });
-              },
-              child: Text('request permission')),
-          TextButton(
+            child: Text('request permission'),
             onPressed: () {
-              print('test');
+              setState(() {
+                Geolocator.requestPermission();
+                _getLocation();
+              });
+            },
+          ),
+          TextButton(
+            child: Text('update status'),
+            onPressed: () {
+              setState(() {
+                updateStatus();
+              });
+            },
+          ),
+          TextButton(
+            child: Text('Get Location'),
+            onPressed: () {
               _getLocation();
             },
-            child: Text('Get Location'),
+          ),
+          TextButton(
+            child: Text('toggle debug'),
+            onPressed: () {
+              setState(() {
+                debugmode = !debugmode;
+                updateStatus();
+              });
+            },
           ),
         ],
       )),
