@@ -1,3 +1,4 @@
+import 'package:clima/services/location.dart';
 import 'package:clima/widgets/status_text.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,55 +9,11 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  bool locationIsEnabled;
-  LocationPermission permission;
-  bool hasPermission;
-  bool debugmode = false;
-  var blank = '';
-  void _getLocation() async {
-    try {
-      debugmode ? print('INFO -- trying to get location') : blank = '';
-      locationIsEnabled = await Geolocator.isLocationServiceEnabled();
-      permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.always ||
-          permission == LocationPermission.whileInUse) {
-        hasPermission = true;
-      } else {
-        hasPermission = false;
-      }
-      debugmode ? print('INFO -- checking permissions') : blank = '';
-      if (!locationIsEnabled) {
-        throw Exception('location is not enabled');
-      }
-      if (!hasPermission) {
-        throw Exception('permission is not granted');
-      }
-      debugmode ? print('INFO -- getting position via giolocator') : blank = '';
-      Position position = await Geolocator.getCurrentPosition();
-      debugmode ? print('INFO -- printing position') : blank = '';
-      print(position);
-    } catch (e) {
-      print("could not get location becaus'");
-      print(e);
-    }
-  }
-
-  void updateStatus() async {
-    locationIsEnabled = await Geolocator.isLocationServiceEnabled();
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse) {
-      hasPermission = true;
-    } else {
-      hasPermission = false;
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     print('getting location');
-    _getLocation();
+    Location.printPossition();
   }
 
   @override
@@ -67,15 +24,15 @@ class _LoadingScreenState extends State<LoadingScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           StatusText(
-              enabled: locationIsEnabled,
-              permission: permission,
-              debug: debugmode),
+              enabled: Location.getLocationIsEnabled(),
+              permission: Location.getPermission(),
+              debug: Location.getDebugmode()),
           TextButton(
             child: Text('request permission'),
             onPressed: () {
               setState(() {
                 Geolocator.requestPermission();
-                _getLocation();
+                Location.printPossition();
               });
             },
           ),
@@ -83,22 +40,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
             child: Text('update status'),
             onPressed: () {
               setState(() {
-                updateStatus();
+                Location.updateStatus();
               });
             },
           ),
           TextButton(
             child: Text('Get Location'),
             onPressed: () {
-              _getLocation();
+              Location.printPossition();
             },
           ),
           TextButton(
             child: Text('toggle debug'),
             onPressed: () {
               setState(() {
-                debugmode = !debugmode;
-                updateStatus();
+                Location.toggleDebugmode();
+                Location.updateStatus();
               });
             },
           ),
