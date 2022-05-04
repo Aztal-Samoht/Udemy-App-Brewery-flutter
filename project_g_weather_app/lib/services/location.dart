@@ -2,10 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 
 class Location {
+  Location() {}
+  Position _here;
+
+  void getLocation() async {
+    this._here = await Geolocator.getCurrentPosition();
+  }
+
+  double getLatidude() {
+    return this._here.latitude;
+  }
+
+  double getlongitude() {
+    return this._here.longitude;
+  }
+
   static bool _locationIsEnabled;
   static LocationPermission _permission;
   static bool _hasPermission;
-  static bool _debugmode = false;
+  static bool _debugmode = true;
   static var _blank = '';
 
   static void updateStatus() async {
@@ -20,10 +35,8 @@ class Location {
   }
 
   static void _fillVars() async {
-    _debugmode ? print('INFO -- asking if service is avalable') : _blank = '';
-    _locationIsEnabled = await Geolocator.isLocationServiceEnabled();
-    _debugmode ? print('INFO -- asking for permission status') : _blank = '';
-    _permission = await Geolocator.checkPermission();
+    await _setLocationIsEnabled();
+    await _setPermission();
     _setHasPermission();
   }
 
@@ -38,54 +51,59 @@ class Location {
 
   static void _checkPermissions() {
     _debugmode ? print('INFO -- checking permissions') : _blank = '';
+    _debugmode
+        ? print('DEBUG -- !_locationIsEnabled => ' +
+            (!_locationIsEnabled).toString())
+        : _blank = '';
     if (!_locationIsEnabled) {
       throw Exception('location is not enabled');
     }
-    if (!_hasPermission) {
+    _debugmode
+        ? print('DEBUG -- !_hasPermission => ' + (!_hasPermission).toString())
+        : _blank = '';
+    if (_hasPermission == null) {
       throw Exception('permission is not granted');
     }
   }
 
-  static Future<Position> getLocation() async {
+  static void _setLocationIsEnabled() async {
+    _debugmode ? print('INFO -- asking if service is avalable') : _blank = '';
+    _locationIsEnabled = await Geolocator.isLocationServiceEnabled();
+    _debugmode
+        ? print('DEBUG -- _locationIsEnabled: ' + _locationIsEnabled.toString())
+        : _blank = '';
+  }
+
+  static void _setPermission() async {
+    _debugmode ? print('INFO -- asking for permission status') : _blank = '';
+    _permission = await Geolocator.checkPermission();
+    _debugmode
+        ? print('DEBUG -- _permission: ' + _permission.toString())
+        : _blank = '';
+  }
+
+  static Future<Position> staticGetLocation() async {
     _debugmode ? print('INFO -- trying to get location') : _blank = '';
     try {
-      _fillVars();
-      _debugmode ? print('INFO -- asking if service is avalable') : _blank = '';
-      _locationIsEnabled = await Geolocator.isLocationServiceEnabled();
-      _debugmode ? print('INFO -- asking for permission status') : _blank = '';
-      _permission = await Geolocator.checkPermission();
-
-      _setHasPermission();
-      // if (_permission == LocationPermission.always ||
-      //     _permission == LocationPermission.whileInUse) {
-      //   _hasPermission = true;
-      // } else {
-      //   _hasPermission = false;
-      // }
-
+      await _fillVars();
+      // await _setLocationIsEnabled();
+      // _setPermission();
+      // _setHasPermission();
       _checkPermissions();
-      // _debugmode ? print('INFO -- checking permissions') : _blank = '';
-      // if (!_locationIsEnabled) {
-      //   throw Exception('location is not enabled');
-      // }
-      // if (!_hasPermission) {
-      //   throw Exception('permission is not granted');
-      // }
-
       _debugmode
           ? print('INFO -- getting position via giolocator')
           : _blank = '';
       return await Geolocator.getCurrentPosition();
       _debugmode ? print('INFO -- printing position') : _blank = '';
     } catch (e) {
-      print("could not get location becaus'");
+      print("could not get location becaus:");
       print(e);
     }
   }
 
   static void printPossition() async {
     _debugmode ? print('INFO -- printing coordinates') : _blank = '';
-    print(await getLocation());
+    print(await staticGetLocation());
   }
 
   static void toggleDebugmode() {

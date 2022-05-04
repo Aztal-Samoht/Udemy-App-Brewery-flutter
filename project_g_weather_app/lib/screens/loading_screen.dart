@@ -1,7 +1,8 @@
 import 'package:clima/services/location.dart';
-import 'package:clima/widgets/status_text.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart';
+import 'package:clima/widgets/options.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -9,59 +10,49 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  Location currentLocation = Location();
   @override
   void initState() {
     super.initState();
+    currentLocation.getLocation();
     print('getting location');
     Location.printPossition();
+  }
+
+  void getWeather() async {
+    Response response = await get(
+        Uri(path: 'api.openweathermap.org/data/2.5/weather?q=London'));
+    print(response);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          StatusText(
-              enabled: Location.getLocationIsEnabled(),
-              permission: Location.getPermission(),
-              debug: Location.getDebugmode()),
-          TextButton(
-            child: Text('request permission'),
-            onPressed: () {
-              setState(() {
-                Geolocator.requestPermission();
-                Location.printPossition();
-              });
-            },
-          ),
-          TextButton(
-            child: Text('update status'),
-            onPressed: () {
-              setState(() {
-                Location.updateStatus();
-              });
-            },
-          ),
-          TextButton(
-            child: Text('Get Location'),
-            onPressed: () {
-              Location.printPossition();
-            },
-          ),
-          TextButton(
-            child: Text('toggle debug'),
-            onPressed: () {
-              setState(() {
-                Location.toggleDebugmode();
-                Location.updateStatus();
-              });
-            },
-          ),
-        ],
-      )),
-    );
+        body: Options(
+      requestPermission: doRequestPermission,
+      updateStatus: doUpdateStatus,
+      toggle: doToggle,
+    ));
+  }
+
+  void doRequestPermission() {
+    setState(() {
+      Geolocator.requestPermission();
+      Location.printPossition();
+    });
+  }
+
+  void doUpdateStatus() {
+    setState(() {
+      Location.updateStatus();
+    });
+  }
+
+  void doToggle() {
+    setState(() {
+      Location.toggleDebugmode();
+      Location.updateStatus();
+    });
   }
 }
 
