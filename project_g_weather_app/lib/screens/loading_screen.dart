@@ -1,8 +1,9 @@
 import 'package:clima/services/location.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:clima/widgets/my_options.dart';
+import 'dart:convert' as convert;
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -20,11 +21,28 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getWeather() async {
-    Response response = await get(Uri(
-        path:
-            'https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22'));
-    print(response.body);
-    print('test');
+    var url = Uri.https('samples.openweathermap.org', '/data/2.5/weather', {
+      'lat': '35',
+      'lon': '139',
+      'appid': 'b6907d289e10d714a6e88b30761fae22'
+    });
+    var response = await http.get(url);
+    // path:
+    //     'https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22'));
+
+    // print(response.statusCode);
+    String data = response.body;
+    var convertedData = convert.jsonDecode(data);
+    // convertedData.forEach((x, y) {
+    //   print(x.toString() + ': ' + y.toString());
+    // });
+    double temp = convertedData['main']['temp'];
+    String city = convertedData['name'];
+    int condition = convertedData['weather'][0]['id'];
+    print(convertedData['coord']['lat']);
+    print('the current weather in london is: ' +
+        convertedData['weather'][0]['description']);
+    print(temp.toString() + 'Kalvin\n' + city + '\n' + condition.toString());
   }
 
   @override
