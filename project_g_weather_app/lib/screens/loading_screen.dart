@@ -2,7 +2,7 @@ import 'package:clima/services/location.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
-import 'package:clima/widgets/options.dart';
+import 'package:clima/widgets/my_options.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -20,9 +20,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getWeather() async {
-    Response response = await get(
-        Uri(path: 'api.openweathermap.org/data/2.5/weather?q=London'));
-    print(response);
+    Response response = await get(Uri(
+        path:
+            'https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22'));
+    print(response.body);
+    print('test');
   }
 
   @override
@@ -32,6 +34,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       requestPermission: doRequestPermission,
       updateStatus: doUpdateStatus,
       toggle: doToggle,
+      printWeather1: getWeather,
     ));
   }
 

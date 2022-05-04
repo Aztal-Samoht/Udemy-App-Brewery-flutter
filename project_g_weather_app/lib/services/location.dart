@@ -20,7 +20,7 @@ class Location {
   static bool _locationIsEnabled;
   static LocationPermission _permission;
   static bool _hasPermission;
-  static bool _debugmode = true;
+  static bool _debugmode = false;
   static var _blank = '';
 
   static void updateStatus() async {
