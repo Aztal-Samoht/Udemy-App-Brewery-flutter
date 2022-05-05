@@ -2,11 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
 
 class LocationScreen extends StatefulWidget {
+  LocationScreen({this.locationWeather});
+
+  final locationWeather;
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.locationWeather);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,3 +85,10 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+
+// double temp = NetworkHelper.getTemp(weatherData);
+// String cityName = NetworkHelper.getCity(weatherData);
+// int condition = NetworkHelper.getCondition(weatherData);
+// print(temp);
+// print(cityName);
+// print(condition);
