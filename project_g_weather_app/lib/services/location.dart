@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 
 class Location {
-  Location() {}
+  Location() {
+    _obtainPossition();
+  }
   Position _here;
 
-  void getLocation() async {
+  void _obtainPossition() async {
     this._here = await Geolocator.getCurrentPosition();
   }
 
