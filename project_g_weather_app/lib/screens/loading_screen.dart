@@ -4,6 +4,7 @@ import 'package:clima/services/networking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../utilities/constants.dart';
+import 'package:clima/services/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -12,20 +13,34 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   @override
-  void initState() {
+  void initState() async {
     super.initState();
     Location.printPossition();
-    getLocationData();
+    dynamic nextLocation = await getLocationWeather();
+    while (nextLocation != null) {
+      nextLocation = await getCityWeather(nextLocation);
+    }
   }
 
-  void getLocationData() async {
-    Location location = Location();
-    await location.getLocation();
-    Uri url = buildUrl(location);
-    NetworkHelper networkHelper = NetworkHelper(url);
-    dynamic weatherData = await networkHelper.getData();
+  Future<dynamic> getLocationWeather() async {
+    dynamic weatherData = await WeatherModel.getLocationWeatherData();
 
-    Navigator.push(
+    return Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return LocationScreen(
+            locationWeather: weatherData,
+          );
+        },
+      ),
+    );
+  }
+
+  Future<dynamic> getCityWeather(String city) async {
+    dynamic weatherData = await WeatherModel.getLocationWeatherDataFor(city);
+
+    return Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
