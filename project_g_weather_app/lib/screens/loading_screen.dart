@@ -41,6 +41,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Uri.https(kAthority, kPath, {
       'lat': x.getLatidude().toString(),
       'lon': x.getlongitude().toString(),
+      'units': 'metric',
       'appid': kApiKey
     });
   }

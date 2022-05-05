@@ -26,5 +26,5 @@ class NetworkHelper {
 // }
 //
 // static int getCondition(dynamic data) {
-// return data['weather'][0]['id'];
+// return data;
 // }
