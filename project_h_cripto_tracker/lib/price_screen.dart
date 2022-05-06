@@ -16,9 +16,9 @@ class _PriceScreenState extends State<PriceScreen> {
   String btcPrice = '??';
   String ethPrice = '??';
   String dogePrice = '??';
-  Uri BtcUrl;
-  Uri EthUrl;
-  Uri DogeUrl;
+  Uri btcUrl;
+  Uri ethUrl;
+  Uri dogeUrl;
 
   CupertinoPicker getCupertinoPicker() {
     List<Text> menuItems = [];
@@ -52,27 +52,31 @@ class _PriceScreenState extends State<PriceScreen> {
         setState(() {
           selectedCurrency = value;
         });
-        updatePrice(value);
+        updatePrices(value);
       },
     );
   }
 
-  void updatePrice(String value) async {
-    updateUrl();
-    String newPrice = await getPrice();
+  void updatePrices(String value) async {
+    updateUrls();
+    String bPrice = await getPrice(btcUrl);
+    String ePrice = await getPrice(ethUrl);
+    String dPrice = await getPrice(dogeUrl);
     setState(() {
-      btcPrice = newPrice;
+      btcPrice = bPrice;
+      ethPrice = ePrice;
+      dogePrice = dPrice;
     });
   }
 
-  void updateUrl() {
-    BtcUrl = NetworkHelper.buildUrl(kBtcPath, selectedCurrency);
-    print(BtcUrl);
+  void updateUrls() {
+    btcUrl = NetworkHelper.buildUrl(kBtcPath, selectedCurrency);
+    ethUrl = NetworkHelper.buildUrl(kEthPath, selectedCurrency);
+    dogeUrl = NetworkHelper.buildUrl(kDogePath, selectedCurrency);
   }
 
-  Future<String> getPrice() async {
-    return (await NetworkHelper.staticGetData(BtcUrl))['rate']
-        .toStringAsFixed(5);
+  Future<String> getPrice(Uri url) async {
+    return (await NetworkHelper.staticGetData(url))['rate'].toStringAsFixed(5);
   }
 
   @override
@@ -90,32 +94,18 @@ class _PriceScreenState extends State<PriceScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          CoinCard(price: btcPrice, selectedCurrency: selectedCurrency),
-          CoinCard(price: ethPrice, selectedCurrency: selectedCurrency),
-          CoinCard(price: dogePrice, selectedCurrency: selectedCurrency),
-          Padding(
-            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-            child: Card(
-              color: Colors.lightBlueAccent,
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: Center(
-                  child: Text(
-                    '1 BTC = $btcPrice $selectedCurrency',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          CoinCard(
+              title: 'BTC',
+              price: btcPrice,
+              selectedCurrency: selectedCurrency),
+          CoinCard(
+              title: 'ETH',
+              price: ethPrice,
+              selectedCurrency: selectedCurrency),
+          CoinCard(
+              title: 'Doge',
+              price: dogePrice,
+              selectedCurrency: selectedCurrency),
           Container(
             height: 150.0,
             alignment: Alignment.center,

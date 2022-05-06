@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CoinCard extends StatelessWidget {
-  CoinCard({this.selectedCurrency, this.price});
+  CoinCard({this.selectedCurrency, this.price, this.title});
 
+  final String title;
   final String price;
   final String selectedCurrency;
 
@@ -20,7 +21,7 @@ class CoinCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
           child: Center(
             child: Text(
-              '1 BTC = $price $selectedCurrency',
+              '1 $title = $price $selectedCurrency',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20.0,
