@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:project_h_cripto_tracker/coin_card.dart';
 import 'package:project_h_cripto_tracker/constants.dart';
 import 'coin_data.dart';
 import 'dart:io' show Platform;
@@ -12,56 +13,12 @@ class PriceScreen extends StatefulWidget {
 
 class _PriceScreenState extends State<PriceScreen> {
   String selectedCurrency = 'USD';
-  String price = '??';
-  Uri BitcoinUrl;
-  String buttonString = 'update price';
-
-  void updateUrl() {
-    BitcoinUrl = NetworkHelper.buildUrl(kBtcPath, selectedCurrency);
-    print(BitcoinUrl);
-  }
-
-  DropdownButton<String> getDropdownButton() {
-    List<DropdownMenuItem<String>> menuItems = [];
-    kCurrenciesList.forEach((String a) {
-      menuItems.add(DropdownMenuItem(child: Text(a), value: a));
-    });
-    return DropdownButton<String>(
-      value: selectedCurrency,
-      items: menuItems,
-      // [Dropdown]
-      onChanged: (value) {
-        setState(() {
-          selectedCurrency = value;
-        });
-      },
-    );
-  }
-
-  // () {
-  // setState(
-  // () async {
-  // var data = (await NetworkHelper.staticGetData(
-  // BitcoinUrl))['src_side_base'][0]['rate']
-  //     .toString();
-  // print(data);
-  // print(data.runtimeType);
-  // price = data;
-  // },
-  // );
-  // },
-  Future<String> getPrice() async {
-    return (await NetworkHelper.staticGetData(BitcoinUrl))['src_side_base'][0]
-            ['rate']
-        .toStringAsFixed(5);
-  }
-
-  void updatePrice() async {
-    String newPrice = await getPrice();
-    setState(() {
-      price = newPrice;
-    });
-  }
+  String btcPrice = '??';
+  String ethPrice = '??';
+  String dogePrice = '??';
+  Uri BtcUrl;
+  Uri EthUrl;
+  Uri DogeUrl;
 
   CupertinoPicker getCupertinoPicker() {
     List<Text> menuItems = [];
@@ -83,6 +40,41 @@ class _PriceScreenState extends State<PriceScreen> {
     );
   }
 
+  DropdownButton<String> getDropdownButton() {
+    List<DropdownMenuItem<String>> menuItems = [];
+    kCurrenciesList.forEach((String a) {
+      menuItems.add(DropdownMenuItem(child: Text(a), value: a));
+    });
+    return DropdownButton<String>(
+      value: selectedCurrency.toString(),
+      items: menuItems,
+      onChanged: (value) {
+        setState(() {
+          selectedCurrency = value;
+        });
+        updatePrice(value);
+      },
+    );
+  }
+
+  void updatePrice(String value) async {
+    updateUrl();
+    String newPrice = await getPrice();
+    setState(() {
+      btcPrice = newPrice;
+    });
+  }
+
+  void updateUrl() {
+    BtcUrl = NetworkHelper.buildUrl(kBtcPath, selectedCurrency);
+    print(BtcUrl);
+  }
+
+  Future<String> getPrice() async {
+    return (await NetworkHelper.staticGetData(BtcUrl))['rate']
+        .toStringAsFixed(5);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -98,6 +90,9 @@ class _PriceScreenState extends State<PriceScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          CoinCard(price: btcPrice, selectedCurrency: selectedCurrency),
+          CoinCard(price: ethPrice, selectedCurrency: selectedCurrency),
+          CoinCard(price: dogePrice, selectedCurrency: selectedCurrency),
           Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
             child: Card(
@@ -110,7 +105,7 @@ class _PriceScreenState extends State<PriceScreen> {
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Center(
                   child: Text(
-                    '1 BTC = $price $selectedCurrency',
+                    '1 BTC = $btcPrice $selectedCurrency',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 20.0,
@@ -119,13 +114,6 @@ class _PriceScreenState extends State<PriceScreen> {
                   ),
                 ),
               ),
-            ),
-          ),
-          TextButton(
-            onPressed: updatePrice,
-            child: Text(
-              buttonString,
-              style: TextStyle(color: Colors.black, fontSize: 100),
             ),
           ),
           Container(

@@ -38,7 +38,8 @@ class NetworkHelper {
   static Future<dynamic> returnPrice(Uri url) async {
     var response = await http.get(url);
     if (response.statusCode == 200) {
-      var data = convert.jsonDecode(response.body)['src_side_base'][0]['rate'];
+      var data = convert.jsonDecode(response.body)['rate'];
+
       return data;
     } else {
       print(response.statusCode);
