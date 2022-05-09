@@ -4,7 +4,8 @@ import 'constants.dart';
 ThemeData getMyBMItheme(BuildContext context) {
   return ThemeData.dark().copyWith(
     colorScheme: ColorScheme.dark().copyWith(
-      primary: Color(0xff0a0e21),
+      primary: Colors.white,
+      // primary: Color(0xff0a0e21),
     ),
     scaffoldBackgroundColor: Color(0xff0a0e21),
     textTheme: TextTheme(

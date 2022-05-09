@@ -1,15 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:project_i_chat_app/screens/login_screen.dart';
+import 'package:project_i_chat_app/screens/registration_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
+  static String id = '/';
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+        duration: Duration(milliseconds: 5000), vsync: this);
+
+    // animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
+    animation =
+        ColorTween(begin: Colors.green, end: Colors.blue).animate(controller);
+    controller.forward();
+    // controller.reverse(from: 1.0);
+    // animation.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     controller.reverse(from: 1.0);
+    //   } else if (status == AnimationStatus.dismissed) {
+    //     controller.forward();
+    //   }
+    // });
+    controller.addListener(() {
+      setState(() {});
+      print(controller.value);
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: animation.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -17,14 +55,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  child: Image.asset('images/logo.png'),
-                  height: 60.0,
+                Hero(
+                  tag: 'logo',
+                  child: Container(
+                    child: Image.asset('images/logo.png'),
+                    height: 60,
+                  ),
                 ),
                 Text(
-                  'Flash Chat',
+                  '${(controller.value * 100).toInt()}%',
                   style: TextStyle(
+                    color: Colors.black,
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
                   ),
@@ -34,6 +77,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             SizedBox(
               height: 48.0,
             ),
+            Text(
+              'Chat app',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 45.0,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
@@ -42,7 +94,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
-                    //Go to login screen.
+                    Navigator.pushNamed(context, LoginScreen.id);
                   },
                   minWidth: 200.0,
                   height: 42.0,
@@ -60,7 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 elevation: 5.0,
                 child: MaterialButton(
                   onPressed: () {
-                    //Go to registration screen.
+                    Navigator.pushNamed(context, RegistrationScreen.id);
                   },
                   minWidth: 200.0,
                   height: 42.0,
