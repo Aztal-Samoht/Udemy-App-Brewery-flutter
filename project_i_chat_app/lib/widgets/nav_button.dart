@@ -23,6 +23,7 @@ class NavButton extends StatelessWidget {
           height: 42.0,
           child: Text(
             this.text,
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),

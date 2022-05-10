@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "20511513386",
+    "project_id": "newproject-b2ff3",
+    "storage_bucket": "newproject-b2ff3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20511513386:android:43bb6d9b8955d06ee6dc53",
+        "android_client_info": {
+          "package_name": "com.aztal_samoht.project_i_chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20511513386-sdhhgkjokad5f12h4ahqigu2vd7jcpht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgcTGwKpL6dtEVpkUxmsMUEUdfWqQ0xIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20511513386-sdhhgkjokad5f12h4ahqigu2vd7jcpht.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
