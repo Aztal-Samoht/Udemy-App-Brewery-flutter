@@ -19,7 +19,7 @@ const kMessageContainerDecoration = BoxDecoration(
 );
 
 const kInputDeco = InputDecoration(
-  hintText: 'Enter your password',
+  hintText: "use '.copyWith(hintText: '<desired input>')'",
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),

@@ -9,6 +9,9 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +33,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 48.0,
             ),
             TextField(
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
               onChanged: (value) {
-                //Do something with the user input.
+                this.email = value;
               },
               decoration: kInputDeco.copyWith(hintText: 'enter email'),
             ),
@@ -39,10 +44,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 8.0,
             ),
             TextField(
+              obscureText: true,
+              textAlign: TextAlign.center,
               onChanged: (value) {
-                //Do something with the user input.
+                this.password = value;
               },
-              decoration: kInputDeco,
+              decoration: kInputDeco.copyWith(hintText: 'enter password'),
             ),
             SizedBox(
               height: 24.0,
@@ -50,6 +57,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             NavButton(
               color: Colors.blueAccent,
               text: 'Register',
+              onPressed: () {
+                print(email);
+                print(password);
+              },
             ),
           ],
         ),

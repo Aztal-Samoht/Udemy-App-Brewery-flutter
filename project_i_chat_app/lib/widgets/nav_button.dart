@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class NavButton extends StatelessWidget {
-  NavButton({this.text, this.color, this.destination});
+  NavButton({this.text, this.color, this.destination, this.onPressed}) {
+    this.onPressed == null ? this.hasFunction = false : this.hasFunction = true;
+  }
 
   final String text;
   final Color color;
   final String destination;
+  final Function onPressed;
+  bool hasFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +20,11 @@ class NavButton extends StatelessWidget {
         color: this.color,
         borderRadius: BorderRadius.circular(30.0),
         child: MaterialButton(
-          onPressed: () {
-            Navigator.pushNamed(context, this.destination);
-          },
+          onPressed: hasFunction
+              ? onPressed
+              : () {
+                  Navigator.pushNamed(context, this.destination);
+                },
           minWidth: 200.0,
           height: 42.0,
           child: Text(
