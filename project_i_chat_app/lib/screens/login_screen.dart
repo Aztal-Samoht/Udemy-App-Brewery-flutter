@@ -83,9 +83,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     final userCredential =
                         await _auth.signInWithEmailAndPassword(
                             email: this.email, password: this.password);
+                    print('userCred: $userCredential\n');
                     final user = userCredential.user;
-                    print(user?.uid);
-                    print(user?.email);
+                    print('logged in as: $user');
+                    // print(user?.uid);
+                    // print(user?.email);
                     Navigator.pushNamed(context, ChatScreen.id);
                   } catch (e) {
                     print('printing error');

@@ -30,7 +30,8 @@ class _ChatScreenState extends State<ChatScreen> {
       final user = await this._auth.currentUser;
       if (user != null) {
         this.loggedInUser = user;
-        print(this.loggedInUser.email);
+        print(
+            'email from getCurrentUser in chat_screen ${this.loggedInUser.email}');
       }
     } catch (e) {
       print(e);
@@ -93,8 +94,8 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             MessagesStream(
-              db: _firestore,
-              currentUser: loggedInUser,
+              firestore: _firestore,
+              // currentUser: loggedInUser,
             ),
             Container(
               decoration: kMessageContainerDecoration,
@@ -111,16 +112,18 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   MaterialButton(
-                    onPressed: () {
-                      _firestore
-                          .collection('messages')
-                          .doc(messageNumber.toString())
-                          .set({
+                    onPressed: () async {
+                      _firestore.collection('messages').add({
                         'sender': loggedInUser.email,
                         'text': message,
+                        'timestamp': FieldValue.serverTimestamp(),
                       });
+                      var temp = await this._auth.currentUser;
+                      print(
+                          'this._auth.currentUser from chat_screen: ${this._auth.currentUser}');
+                      print(
+                          'this.loggedInUser from chat_screen: ${this.loggedInUser}');
                       messageTextController.clear();
-                      messageNumber++;
                       //Implement send functionality.
                     },
                     child: Text(
