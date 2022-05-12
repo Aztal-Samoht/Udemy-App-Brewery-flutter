@@ -17,7 +17,6 @@ class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
   User loggedInUser;
   String message;
-  int messageNumber = 0;
   List<Widget> textList = [];
 
   @override
@@ -93,7 +92,10 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            MessagesStream(db: _firestore),
+            MessagesStream(
+              db: _firestore,
+              currentUser: loggedInUser,
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -116,7 +118,6 @@ class _ChatScreenState extends State<ChatScreen> {
                           .set({
                         'sender': loggedInUser.email,
                         'text': message,
-                        'messageNumber': messageNumber,
                       });
                       messageTextController.clear();
                       messageNumber++;
