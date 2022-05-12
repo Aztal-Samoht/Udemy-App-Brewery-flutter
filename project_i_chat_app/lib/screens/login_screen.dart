@@ -28,15 +28,26 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Hero(
-                tag: 'logo',
-                child: Container(
-                  height: 200.0,
-                  child: Image.asset('images/logo.png'),
+              Flexible(
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 7,
+                      child: Hero(
+                        tag: 'logo',
+                        child: Container(
+                          height: 200.0,
+                          child: Image.asset('images/logo.png'),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 5.0,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(
-                height: 48.0,
               ),
               TextField(
                   keyboardType: TextInputType.emailAddress,
@@ -45,8 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     this.email = value;
                   },
                   decoration: kInputDeco.copyWith(hintText: 'enter email')),
-              SizedBox(
-                height: 8.0,
+              Flexible(
+                child: SizedBox(
+                  height: 8.0,
+                ),
               ),
               TextField(
                 // obscureText: true,
