@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_i_chat_app/constants.dart';
 
 class MessageBubble extends StatelessWidget {
   const MessageBubble({key, this.sender, this.text}) : super(key: key);
@@ -24,7 +25,7 @@ class MessageBubble extends StatelessWidget {
           ),
           Material(
             elevation: 5,
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: kBubbleBorderSelf,
             color: Colors.lightBlueAccent,
             child: Padding(
               padding:

@@ -33,3 +33,20 @@ const kInputDeco = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+const kBubbleRadius = Radius.circular(15);
+
+const kBubbleRadiusPointy = Radius.circular(3);
+
+const kBubbleBorderSelf = BorderRadius.only(
+  topLeft: kBubbleRadius,
+  bottomLeft: kBubbleRadius,
+  bottomRight: kBubbleRadius,
+  topRight: kBubbleRadiusPointy,
+);
+const kBubbleBorderOther = BorderRadius.only(
+  topLeft: kBubbleRadiusPointy,
+  bottomLeft: kBubbleRadius,
+  bottomRight: kBubbleRadius,
+  topRight: kBubbleRadius,
+);
