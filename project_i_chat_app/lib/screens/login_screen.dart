@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:project_i_chat_app/constants.dart';
+import 'package:project_i_chat_app/screens/chat_screen.dart';
 import 'package:project_i_chat_app/widgets/nav_button.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -9,51 +12,79 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FirebaseAuth.instance;
   String email;
   String password;
+  bool showSpinner = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Hero(
-              tag: 'logo',
-              child: Container(
-                height: 200.0,
-                child: Image.asset('images/logo.png'),
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Hero(
+                tag: 'logo',
+                child: Container(
+                  height: 200.0,
+                  child: Image.asset('images/logo.png'),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 48.0,
-            ),
-            TextField(
-                keyboardType: TextInputType.emailAddress,
+              SizedBox(
+                height: 48.0,
+              ),
+              TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
+                    this.email = value;
+                  },
+                  decoration: kInputDeco.copyWith(hintText: 'enter email')),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                // obscureText: true,
                 textAlign: TextAlign.center,
                 onChanged: (value) {
-                  this.email = value;
+                  this.password = value;
                 },
-                decoration: kInputDeco.copyWith(hintText: 'enter email')),
-            SizedBox(
-              height: 8.0,
-            ),
-            TextField(
-              obscureText: true,
-              textAlign: TextAlign.center,
-              onChanged: (value) {
-                this.password = value;
-              },
-              decoration: kInputDeco.copyWith(hintText: 'enter password'),
-            ),
-            SizedBox(
-              height: 24.0,
-            ),
-            NavButton(color: Colors.lightBlueAccent, text: 'Log in'),
-          ],
+                decoration: kInputDeco.copyWith(hintText: 'enter password'),
+              ),
+              SizedBox(
+                height: 24.0,
+              ),
+              NavButton(
+                color: Colors.lightBlueAccent,
+                text: 'Log in',
+                onPressed: () async {
+                  setState(() {
+                    showSpinner = true;
+                  });
+                  try {
+                    final userCredential =
+                        await _auth.signInWithEmailAndPassword(
+                            email: this.email, password: this.password);
+                    final user = userCredential.user;
+                    print(user?.uid);
+                    print(user?.email);
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  } catch (e) {
+                    print('printing error');
+                    print(e);
+                  }
+                  setState(() {
+                    showSpinner = false;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
