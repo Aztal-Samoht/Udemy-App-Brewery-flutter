@@ -7,12 +7,15 @@ class AddTaskTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: SizedBox(
-        height: 240,
+        height: 200,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('Add Task', style: kAddTaskFont),
-            TextField(),
+            TextField(
+              textAlign: TextAlign.center,
+              autofocus: true,
+            ),
             TextButton(
               onPressed: () {},
               child: Container(

@@ -9,7 +9,10 @@ class AddTaskActionButton extends StatelessWidget {
       child: Icon(Icons.add),
       onPressed: () {
         showModalBottomSheet(
-            context: context, builder: (context) => TaskBottomSheet());
+            isScrollControlled: true,
+            context: context,
+            builder: (context) =>
+                SingleChildScrollView(child: TaskBottomSheet()));
       },
     );
   }
