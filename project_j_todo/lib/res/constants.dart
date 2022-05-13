@@ -11,6 +11,8 @@ const EdgeInsets kTaskScreenPadding = EdgeInsets.only(
 const double kSF = 1;
 
 const kTaskTextStyle = TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
+const kAddTaskFont = TextStyle(
+    fontSize: 33, fontWeight: FontWeight.w300, color: Colors.lightBlueAccent);
 const kTaskListDeco = BoxDecoration(
   color: Colors.white,
   borderRadius: BorderRadius.only(
