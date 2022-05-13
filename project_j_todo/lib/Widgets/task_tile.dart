@@ -15,11 +15,14 @@ class _TaskTileState extends State<TaskTile> {
     return ListTile(
       title: Text(
         "this is a task",
-        style: kTaskTextStyle,
+        style: kTaskTextStyle.copyWith(
+            decoration:
+                isChecked ? TextDecoration.lineThrough : TextDecoration.none),
       ),
       trailing: Checkbox(
         value: isChecked,
-        onChanged: (bool? value) {
+        activeColor: Colors.lightBlueAccent,
+        onChanged: (value) {
           setState(() {
             isChecked = value!;
           });
