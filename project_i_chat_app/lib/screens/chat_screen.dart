@@ -38,40 +38,6 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  // void getMessages() async {
-  //   final messages = await _firestore.collection('messages').get();
-  //   print('messages.runtimeType: ${messages.runtimeType}');
-  //   print('messages.data(): ${messages.data()}');
-  //   print('messages: ${messages}');
-  // for (var message in messages.data()) {
-  //   print(message.data().cast());
-  // }
-  // final otherMessages = await _firestore.collection('messages').get();
-  // print('otherMessages: ${otherMessages.runtimeType}');
-  // final snapshot = await _firestore.collection('messages').doc('0').get();
-  // print('snapshot: ${snapshot.runtimeType}');
-  // print(snapshot.data()['text']);
-  // final query = messages.where('sender', isEqualTo: 'r@r.com');
-  // print('query: ${query.runtimeType}');
-
-  // print(await query.get().data()['text']);
-  // messages.data();
-  // otherMessages.data();
-  // snapshot.data().forEach();
-  // }
-  //
-  // Future<List<Widget>> messagesStream() async {
-  //   List<Widget> textList = [];
-  //   await for (var snapshot in _firestore.collection('messages').snapshots()) {
-  //     for (var message in snapshot.docs) {
-  //       textList.add(Text(message.data()['text']));
-  //       print(message.data()['text']);
-  //     }
-  //     print("-----------------------");
-  //   }
-  //   return textList;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

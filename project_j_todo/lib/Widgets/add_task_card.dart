@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:project_j_todo/models/task.dart';
 import 'package:project_j_todo/res/constants.dart';
 
-class AddTaskTile extends StatelessWidget {
+class AddTaskCard extends StatelessWidget {
+  AddTaskCard({required this.theList});
+  final List<Task> theList;
+  String enteredText = '';
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,12 +20,19 @@ class AddTaskTile extends StatelessWidget {
             TextField(
               textAlign: TextAlign.center,
               autofocus: true,
+              onChanged: (newText) {
+                enteredText = newText;
+              },
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                print(enteredText);
+                theList.add(Task(name: enteredText));
+                print(theList);
+              },
               child: Container(
                 color: Colors.lightBlueAccent,
-                child: SizedBox(
+                child: const SizedBox(
                   height: 50,
                   width: double.infinity,
                   child: Center(

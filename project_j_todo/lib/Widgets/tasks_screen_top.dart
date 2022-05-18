@@ -5,9 +5,10 @@ import 'package:project_j_todo/res/constants.dart';
 
 class TasksScreenTop extends StatelessWidget {
   const TasksScreenTop({
+    required this.listCount,
     Key? key,
   }) : super(key: key);
-
+  final String listCount;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,8 +26,8 @@ class TasksScreenTop extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          const Text(
-            '12 tasks',
+          Text(
+            '$listCount tasks',
             style: TextStyle(color: Colors.white, fontSize: 18),
           ),
         ],
