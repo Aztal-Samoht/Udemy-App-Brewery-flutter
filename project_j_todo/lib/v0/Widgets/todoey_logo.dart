@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project_j_todo/res/constants.dart';
+import 'package:project_j_todo/v0/res/constants.dart';
 
 class TodoeyLogo extends StatelessWidget {
   const TodoeyLogo();

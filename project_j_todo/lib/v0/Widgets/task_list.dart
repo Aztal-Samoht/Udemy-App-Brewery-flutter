@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:project_j_todo/Widgets/task_tile.dart';
-import 'package:project_j_todo/models/task.dart';
+import 'package:project_j_todo/v0/Widgets/task_tile.dart';
+import 'package:project_j_todo/v0/models/task.dart';
 
 class TaskList extends StatefulWidget {
   TaskList({required this.tasks});

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_j_todo/Widgets/add_task_card.dart';
-import 'package:project_j_todo/Widgets/rounded_top_white_card.dart';
-import 'package:project_j_todo/models/task.dart';
-import 'package:project_j_todo/res/constants.dart';
+import 'package:project_j_todo/v0/Widgets/rounded_top_white_card.dart';
+import 'package:project_j_todo/v0/res/constants.dart';
 
 class AddTaskScreen extends StatelessWidget {
   AddTaskScreen({required this.addTaskCallback});

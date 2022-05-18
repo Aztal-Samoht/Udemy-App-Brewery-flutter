@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_j_todo/models/task.dart';
-import 'package:project_j_todo/res/constants.dart';
+import 'package:project_j_todo/v0/models/task.dart';
+import 'package:project_j_todo/v0/res/constants.dart';
 
 class TaskTile extends StatelessWidget {
   TaskTile({required this.aTask, required this.checkboxCallback});

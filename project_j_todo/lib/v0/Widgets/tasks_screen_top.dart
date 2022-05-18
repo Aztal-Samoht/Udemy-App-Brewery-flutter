@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project_j_todo/Widgets/todoey_logo.dart';
-import 'package:project_j_todo/res/constants.dart';
+import 'package:project_j_todo/v0/Widgets/todoey_logo.dart';
+import 'package:project_j_todo/v0/res/constants.dart';
 
 class TasksScreenTop extends StatelessWidget {
   const TasksScreenTop({
