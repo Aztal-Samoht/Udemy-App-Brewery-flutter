@@ -7,4 +7,9 @@ class Task {
   void toggleIsDone() {
     this.isDone = !this.isDone;
   }
+
+  @override
+  String toString() {
+    return '${this.name}';
+  }
 }

@@ -9,4 +9,7 @@ class TaskListProvider with ChangeNotifier {
     _tasks.add(T);
     notifyListeners();
   }
+
+  int get taskCount => _tasks.length;
+  void doAToggle(int index) => _tasks[index].toggleIsDone();
 }

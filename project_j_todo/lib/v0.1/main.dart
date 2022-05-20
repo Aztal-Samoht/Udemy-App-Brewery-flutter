@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:project_j_todo/v0.1/providers/new_task_title_provider.dart';
 import 'package:project_j_todo/v0.1/providers/task_list_provider.dart';
 import 'package:project_j_todo/v0.1/screens/tasks_screen.dart';
-import 'package:project_j_todo/v0.1/widgets/my_app_bar.dart';
 import 'package:project_j_todo/v0.1/widgets/my_floating_action_button.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => TaskListProvider())],
-    child: MyApp()));
+      providers: [
+        ChangeNotifierProvider(create: (_) => TaskListProvider()),
+        ChangeNotifierProvider(create: (_) => NewTaskTitleProvider()),
+      ],
+      child: MyApp(),
+    ));
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
