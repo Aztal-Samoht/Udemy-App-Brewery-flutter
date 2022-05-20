@@ -9,6 +9,7 @@ class MyFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+        tooltip: 'add a task to the list (hold a task to delete it later)',
         backgroundColor: kMainColor,
         child: Icon(Icons.add),
         onPressed: () {

@@ -1,15 +1,13 @@
+///this is the model of a task so that we can
+
 class Task {
+  Task({required this.name, this.isDone = false});
+
   final String name;
   bool isDone;
 
-  Task({required this.name, this.isDone = false});
-
-  void toggleIsDone() {
-    this.isDone = !this.isDone;
-  }
+  void toggleIsDone() => this.isDone = !this.isDone;
 
   @override
-  String toString() {
-    return '${this.name}';
-  }
+  String toString() => '${this.name}';
 }
